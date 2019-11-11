@@ -1,4 +1,6 @@
 ﻿using System;
+using API_Posts_Details.Service;
+using API_Posts_Details.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -6,11 +8,12 @@ namespace API_Posts_Details
 {
     public partial class App : Application
     {
+        public static PostManager PostsManager { get; private set; }
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            PostsManager = new PostManager(new RestService());
+            MainPage = new NavigationPage(new PostsPage());
         }
 
         protected override void OnStart()

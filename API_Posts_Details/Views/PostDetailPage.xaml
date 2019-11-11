@@ -1,5 +1,54 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="API_Posts_Details.Views.PostDetailPage">
+<ContentPage Title="{Binding PageTitle}" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="API_Posts_Details.Views.PostDetailPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--Outer StackLayout Style-->
+            <Style x:Key="stackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="Margin" Value="16,16" />
+                <Setter Property="Orientation" Value="Vertical" />
+            </Style>
+              <!--Entry Title Style-->
+             <Style x:Key="entryTitleStyle" TargetType="Entry">
+                <Setter Property="FontSize" Value="Title" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Placeholder" Value="Enter your title" />
+            </Style>
+              <!--Editor Body Style-->
+             <Style x:Key="editorBodyStyle" TargetType="Editor">
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Placeholder" Value="Enter your comments" />
+            </Style>
+             <!--Button Comment Style-->
+            <Style x:Key="buttonCommentStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Green"/>
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+                <!--Button Save Style-->
+             <Style x:Key="saveButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Green"/>
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
+        <StackLayout Style="{StaticResource stackLayoutStyle}">
+            <Entry Text="{Binding Path=Post.Title}" Style="{StaticResource entryTitleStyle}"/>
+            <Editor Text="{Binding Path=Post.Body}" Style="{StaticResource editorBodyStyle}"/>
+            <Button Text="Show Comments" IsVisible="{Binding IsCommentsButtonVisible}" Command="{Binding ShowCommentsCommand}" Style="{StaticResource buttonCommentStyle}"/>
+            <Button Text="Save"  Command="{Binding SaveCommand}" Style="{StaticResource saveButtonStyle}"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

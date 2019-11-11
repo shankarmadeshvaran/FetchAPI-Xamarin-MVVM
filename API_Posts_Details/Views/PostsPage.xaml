@@ -1,5 +1,49 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="API_Posts_Details.Views.PostsPage">
-    <ContentPage.Content>
-    </ContentPage.Content>
+<ContentPage Title="Posts" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="postsPage"
+             x:Class="API_Posts_Details.Views.PostsPage">
+
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--StackLayout Style-->
+            <Style x:Key="stackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Orientation" Value="Vertical" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+            <!--Label Title Style-->
+             <Style x:Key="labelTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+             <!--Label Body Style-->
+             <Style x:Key="labelBodyStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextColor" Value="Gray" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddPostCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ListView ItemsSource="{Binding Posts}" SelectedItem="{Binding SelectedPost, Mode=TwoWay}" ItemSelected="OnPostSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPostsCommand}" IsRefreshing="{Binding IsRefreshing}" SeparatorColor="Gray">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Style="{StaticResource stackLayoutStyle}">
+                            <Label Text="{Binding Title}" Style="{StaticResource labelTitleStyle}"/>
+                            <Label Text="{Binding Body}" Style="{StaticResource labelBodyStyle}" />
+                        </StackLayout>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete" IsDestructive="true" Command="{Binding Source={x:Reference postsPage}, Path=ViewModel.DeletePostCommand}" CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

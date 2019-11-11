@@ -1,10 +1,11 @@
-﻿using System;
-namespace API_Posts_Details.Models
+﻿namespace API_Posts_Details.Models
 {
     public class Post
     {
-        public Post()
-        {
-        }
+        public int UserId { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
     }
 }
+ 

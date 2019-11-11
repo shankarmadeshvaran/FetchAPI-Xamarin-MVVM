@@ -1,5 +1,60 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="API_Posts_Details.Views.PostCommentsPage">
-    <ContentPage.Content>
-    </ContentPage.Content>
+<ContentPage Title="Comments"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="postCommentsPage"
+             x:Class="API_Posts_Details.Views.PostCommentsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="stackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Orientation" Value="Vertical" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+
+            <!--Label Name Style-->
+             <Style x:Key="labelNameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+
+               <!--Label Email Style-->
+              <Style x:Key="labelEmailStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+
+               <!--Label Body Style-->
+             <Style x:Key="labelBodyStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="TextColor" Value="Gray" />
+            </Style>
+               <!-- Button Done Style-->
+             <Style x:Key="returnButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Green"/>
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <ListView ItemsSource="{Binding Comments}" HasUnevenRows="True" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommentsCommand}" IsRefreshing="{Binding IsRefreshing}" SeparatorColor="Gray">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Style="{StaticResource stackLayoutStyle}">
+                            <Label Text="{Binding Name}" Style="{StaticResource labelNameStyle}"/>
+                            <Label Text="{Binding Email}" Style="{StaticResource labelEmailStyle}"/>
+                            <Label Text="{Binding Body}" Style="{StaticResource labelBodyStyle}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Done" Style="{StaticResource returnButtonStyle}" Command="{Binding ReturnButtonCommand}"/>
+    </StackLayout>
 </ContentPage>
